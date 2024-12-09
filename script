@@ -1,0 +1,70 @@
+import random
+import time
+
+# Define different types of fish and their sizes
+FISH_TYPES = [
+    {"name": "Goldfish", "size": "small"},
+    {"name": "Salmon", "size": "medium"},
+    {"name": "Tuna", "size": "large"},
+    {"name": "Shark", "size": "huge"},
+    {"name": "Catfish", "size": "medium"},
+    {"name": "Bass", "size": "medium"},
+    {"name": "Piranha", "size": "small"},
+]
+
+def print_intro():
+    print("Welcome to the Terminal Fishing Game!")
+    print("You will cast your line and try to catch different types of fish.")
+    print("Each time you cast, you might catch a fish or you might get nothing.")
+    print("The larger the fish, the more points you get!")
+    print("Let's start the fishing adventure!\n")
+
+def cast_line():
+    # Simulate a casting action
+    print("You cast your line into the water...")
+    time.sleep(2)  # Simulate some time passing while waiting
+    print("...waiting for a bite...\n")
+    time.sleep(2)
+    
+    # Random chance of catching a fish or not
+    if random.random() < 0.7:  # 70% chance of catching something
+        return random.choice(FISH_TYPES)
+    else:
+        return None
+
+def display_fish(fish):
+    if fish:
+        print(f"You caught a {fish['size']} {fish['name']}!")
+        if fish['size'] == 'small':
+            return 1
+        elif fish['size'] == 'medium':
+            return 3
+        elif fish['size'] == 'large':
+            return 5
+        elif fish['size'] == 'huge':
+            return 10
+    else:
+        print("You didn't catch anything this time.")
+        return 0
+
+def play_game():
+    score = 0
+    num_casts = 5  # Number of casts to make (can be changed)
+
+    print_intro()
+
+    for _ in range(num_casts):
+        input("Press Enter to cast your line!")
+        fish = cast_line()
+        score += display_fish(fish)
+
+    print(f"\nGame Over! You caught {score} points worth of fish.")
+    if score >= 20:
+        print("Great job! You’re a fishing expert!")
+    elif score >= 10:
+        print("Good job! You're a decent fisherman.")
+    else:
+        print("Better luck next time, fisherman!")
+
+if __name__ == "__main__":
+    play_game()
